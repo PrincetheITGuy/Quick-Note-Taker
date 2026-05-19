@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Quick Note Taker</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background: #e8e8e8;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #2f3e4f;
+            color: white;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .new-note-btn {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            background: #5dc9b4;
+            border: none;
+            color: white;
+            font-size: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .note-item {
+            background: #42556b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        #noteTitle {
+            width: 95%;
+            padding: 12px;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        #noteContent {
+            width: 95%;
+            height: 70%;
+            padding: 15px;
+            font-size: 20px;
+        }
+
+        .buttons {
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 6px;
+            background: #5dc9b4;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <button
+            class="new-note-btn"
+            id="newNoteBtn">
+
+            📝 New Note
+
+        </button>
+
+        <div id="notesList"></div>
+
+    </div>
+
+    <div class="main">
+
+        <input
+            type="text"
+            id="noteTitle"
+            placeholder="Note Title">
+
+        <br>
+
+        <textarea
+            id="noteContent"
+            placeholder="Write your note..."></textarea>
+
+        <div class="buttons">
+
+            <button id="saveBtn">💾 Save</button>
+
+            <button id="saveAsBtn">📁 Save As</button>
+
+            <button id="openFileBtn">📂 Open File</button>
+
+            <button id="deleteBtn">🗑 Delete</button>
+
+        </div>
+
+    </div>
+
+    <script src="renderer.js"></script>
+
+</body>
+
+</html>
