@@ -20,6 +20,25 @@ let currentNoteId = null;
 
 let isDirty = false;
 
+/* WORD COUNT FUNCTION */
+
+function updateWordCount() {
+
+    const text = noteContent.value;
+
+    const characters = text.length;
+
+    const words = text.trim() === ''
+        ? 0
+        : text.trim().split(/\s+/).length;
+
+    const wordCountEl =
+        document.getElementById('word-count');
+
+    wordCountEl.innerText =
+        `Words: ${words} | Characters: ${characters}`;
+}
+
 /* DETECT CHANGES */
 
 noteTitle.addEventListener('input', () => {
@@ -30,6 +49,8 @@ noteTitle.addEventListener('input', () => {
 noteContent.addEventListener('input', () => {
 
     isDirty = true;
+
+    updateWordCount();
 });
 
 /* LOAD NOTES */
@@ -66,6 +87,8 @@ function renderNotes() {
             noteTitle.value = note.title;
 
             noteContent.value = note.content;
+
+            updateWordCount();
 
             isDirty = false;
         });
@@ -110,6 +133,8 @@ newNoteBtn.addEventListener('click', async () => {
     noteTitle.value = newNote.title;
 
     noteContent.value = '';
+
+    updateWordCount();
 
     isDirty = false;
 });
@@ -161,6 +186,8 @@ deleteBtn.addEventListener('click', async () => {
 
     currentNoteId = null;
 
+    updateWordCount();
+
     renderNotes();
 
     isDirty = false;
@@ -188,6 +215,8 @@ openFileBtn.addEventListener('click', async () => {
         noteTitle.value = 'Opened File';
 
         noteContent.value = result.content;
+
+        updateWordCount();
 
         isDirty = false;
     }
@@ -218,3 +247,5 @@ window.electronAPI.onMenuSaveAs(() => {
 /* START */
 
 loadNotes();
+
+updateWordCount();

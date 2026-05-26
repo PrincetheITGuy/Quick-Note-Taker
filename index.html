@@ -9,81 +9,277 @@
 
     <style>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
-            background: #e8e8e8;
-        }
+    /* WORD COUNT */
 
-        .sidebar {
-            width: 260px;
-            background: #2f3e4f;
-            color: white;
-            padding: 10px;
-            overflow-y: auto;
-        }
+    #word-count {
 
-        .new-note-btn {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 15px;
-            background: #5dc9b4;
-            border: none;
-            color: white;
-            font-size: 20px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+        margin-top: 12px;
 
-        .note-item {
-            background: #42556b;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
+        font-size: 14px;
 
-        .main {
-            flex: 1;
-            padding: 20px;
-        }
+        color: #64748b;
 
-        #noteTitle {
-            width: 95%;
-            padding: 12px;
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
+        font-weight: bold;
 
-        #noteContent {
-            width: 95%;
-            height: 70%;
-            padding: 15px;
-            font-size: 20px;
-        }
+        padding-bottom: 10px;
+    }
 
-        .buttons {
-            margin-top: 15px;
-        }
+    /* RESET */
 
-        button {
-            padding: 12px 20px;
-            margin-right: 10px;
-            border: none;
-            border-radius: 6px;
-            background: #5dc9b4;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    * {
+
+        margin: 0;
+
+        padding: 0;
+
+        box-sizing: border-box;
+    }
+
+    /* BODY */
+
+    body {
+
+        display: flex;
+
+        height: 100vh;
+
+        font-family: 'Segoe UI', sans-serif;
+
+        background: #edf2f7;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+
+        width: 280px;
+
+        background: linear-gradient(
+            180deg,
+            #1e293b,
+            #334155
+        );
+
+        padding: 15px;
+
+        color: white;
+
+        overflow-y: auto;
+
+        box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* NEW NOTE BUTTON */
+
+    .new-note-btn {
+
+        width: 100%;
+
+        padding: 16px;
+
+        border: none;
+
+        border-radius: 14px;
+
+        background: linear-gradient(
+            135deg,
+            #38bdf8,
+            #2563eb
+        );
+
+        color: white;
+
+        font-size: 22px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        margin-bottom: 18px;
+
+        transition: 0.2s;
+    }
+
+    .new-note-btn:hover {
+
+        transform: scale(1.02);
+
+        opacity: 0.9;
+    }
+
+    /* NOTE CARDS */
+
+    .note-item {
+
+        background: rgba(255,255,255,0.08);
+
+        padding: 15px;
+
+        margin-bottom: 14px;
+
+        border-radius: 14px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+
+        border-left: 5px solid #38bdf8;
+    }
+
+    .note-item:hover {
+
+        transform: translateX(5px);
+
+        background: rgba(255,255,255,0.15);
+    }
+
+    .note-item strong {
+
+        font-size: 22px;
+
+        display: block;
+
+        margin-bottom: 6px;
+    }
+
+    .note-item small {
+
+        color: #d1d5db;
+    }
+
+    /* MAIN SECTION */
+
+    .main {
+
+        flex: 1;
+
+        padding: 25px;
+
+        display: flex;
+
+        flex-direction: column;
+    }
+
+    /* TITLE INPUT */
+
+    #noteTitle {
+
+        width: 100%;
+
+        padding: 18px;
+
+        font-size: 30px;
+
+        border: none;
+
+        border-radius: 14px;
+
+        margin-bottom: 18px;
+
+        background: white;
+
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+        outline: none;
+    }
+
+    /* NOTE CONTENT */
+
+    #noteContent {
+
+        width: 100%;
+
+        height: 500px;
+
+        padding: 20px;
+
+        font-size: 22px;
+
+        border: none;
+
+        border-radius: 14px;
+
+        resize: none;
+
+        background: white;
+
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+        outline: none;
+
+        line-height: 1.6;
+    }
+
+    /* BUTTON SECTION */
+
+    .buttons {
+
+        margin-top: 20px;
+
+        display: flex;
+
+        gap: 15px;
+
+        flex-wrap: wrap;
+    }
+
+    /* BUTTONS */
+
+    button {
+
+        padding: 14px 24px;
+
+        border: none;
+
+        border-radius: 12px;
+
+        background: linear-gradient(
+            135deg,
+            #38bdf8,
+            #2563eb
+        );
+
+        color: white;
+
+        font-size: 18px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+
+        box-shadow: 0 4px 10px rgba(37,99,235,0.2);
+    }
+
+    button:hover {
+
+        transform: translateY(-2px);
+
+        opacity: 0.92;
+    }
+
+    /* SCROLLBAR */
+
+    ::-webkit-scrollbar {
+
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+
+        background: #64748b;
+
+        border-radius: 20px;
+    }
 
     </style>
 
 </head>
 
 <body>
+
+    <!-- SIDEBAR -->
 
     <div class="sidebar">
 
@@ -99,6 +295,8 @@
 
     </div>
 
+    <!-- MAIN SECTION -->
+
     <div class="main">
 
         <input
@@ -112,19 +310,37 @@
             id="noteContent"
             placeholder="Write your note..."></textarea>
 
+        <!-- BUTTONS -->
+
         <div class="buttons">
 
-            <button id="saveBtn">💾 Save</button>
+            <button id="saveBtn">
+                💾 Save
+            </button>
 
-            <button id="saveAsBtn">📁 Save As</button>
+            <button id="saveAsBtn">
+                📁 Save As
+            </button>
 
-            <button id="openFileBtn">📂 Open File</button>
+            <button id="openFileBtn">
+                📂 Open File
+            </button>
 
-            <button id="deleteBtn">🗑 Delete</button>
+            <button id="deleteBtn">
+                🗑 Delete
+            </button>
 
         </div>
 
+        <!-- WORD COUNT -->
+
+        <div id="word-count">
+            Words: 0 | Characters: 0
+        </div>
+
     </div>
+
+    <!-- JAVASCRIPT -->
 
     <script src="renderer.js"></script>
 
