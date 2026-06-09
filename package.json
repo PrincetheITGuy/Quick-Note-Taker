@@ -1,15 +1,40 @@
 {
   "name": "quick-note-taker",
   "version": "1.0.0",
-  "description": "Electron Quick Note Taker",
+  "description": "Quick Note Taker - Electron desktop note-taking app (Software Engineering final project)",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
   },
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "electron": "^40.8.2"
+    "electron": "^40.10.2",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.quicknotetaker.app",
+    "productName": "Quick Note Taker",
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "emoji.png"
+    ],
+    "win": {
+      "target": "nsis",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "mac": {
+      "target": "dmg"
+    }
   }
 }

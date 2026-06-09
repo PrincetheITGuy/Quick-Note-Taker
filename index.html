@@ -2,348 +2,410 @@
 <html>
 
 <head>
-
     <meta charset="UTF-8">
-
     <title>Quick Note Taker</title>
 
     <style>
-
-    /* WORD COUNT */
-
-    #word-count {
-
-        margin-top: 12px;
-
-        font-size: 14px;
-
-        color: #64748b;
-
-        font-weight: bold;
-
-        padding-bottom: 10px;
-    }
-
-    /* RESET */
-
-    * {
-
-        margin: 0;
-
-        padding: 0;
-
-        box-sizing: border-box;
-    }
-
-    /* BODY */
-
-    body {
-
-        display: flex;
-
-        height: 100vh;
-
-        font-family: 'Segoe UI', sans-serif;
-
-        background: #edf2f7;
-    }
-
-    /* SIDEBAR */
-
-    .sidebar {
-
-        width: 280px;
-
-        background: linear-gradient(
-            180deg,
-            #1e293b,
-            #334155
-        );
-
-        padding: 15px;
-
-        color: white;
-
-        overflow-y: auto;
-
-        box-shadow: 3px 0 10px rgba(0,0,0,0.1);
-    }
-
-    /* NEW NOTE BUTTON */
-
-    .new-note-btn {
-
-        width: 100%;
-
-        padding: 16px;
-
-        border: none;
-
-        border-radius: 14px;
-
-        background: linear-gradient(
-            135deg,
-            #38bdf8,
-            #2563eb
-        );
-
-        color: white;
-
-        font-size: 22px;
-
-        font-weight: bold;
-
-        cursor: pointer;
-
-        margin-bottom: 18px;
-
-        transition: 0.2s;
-    }
-
-    .new-note-btn:hover {
-
-        transform: scale(1.02);
-
-        opacity: 0.9;
-    }
-
-    /* NOTE CARDS */
-
-    .note-item {
-
-        background: rgba(255,255,255,0.08);
-
-        padding: 15px;
-
-        margin-bottom: 14px;
-
-        border-radius: 14px;
-
-        cursor: pointer;
-
-        transition: 0.2s;
-
-        border-left: 5px solid #38bdf8;
-    }
-
-    .note-item:hover {
-
-        transform: translateX(5px);
-
-        background: rgba(255,255,255,0.15);
-    }
-
-    .note-item strong {
-
-        font-size: 22px;
-
-        display: block;
-
-        margin-bottom: 6px;
-    }
-
-    .note-item small {
-
-        color: #d1d5db;
-    }
-
-    /* MAIN SECTION */
-
-    .main {
-
-        flex: 1;
-
-        padding: 25px;
-
-        display: flex;
-
-        flex-direction: column;
-    }
-
-    /* TITLE INPUT */
-
-    #noteTitle {
-
-        width: 100%;
-
-        padding: 18px;
-
-        font-size: 30px;
-
-        border: none;
-
-        border-radius: 14px;
-
-        margin-bottom: 18px;
-
-        background: white;
-
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-
-        outline: none;
-    }
-
-    /* NOTE CONTENT */
-
-    #noteContent {
-
-        width: 100%;
-
-        height: 500px;
-
-        padding: 20px;
-
-        font-size: 22px;
-
-        border: none;
-
-        border-radius: 14px;
-
-        resize: none;
-
-        background: white;
-
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-
-        outline: none;
-
-        line-height: 1.6;
-    }
-
-    /* BUTTON SECTION */
-
-    .buttons {
-
-        margin-top: 20px;
-
-        display: flex;
-
-        gap: 15px;
-
-        flex-wrap: wrap;
-    }
-
-    /* BUTTONS */
-
-    button {
-
-        padding: 14px 24px;
-
-        border: none;
-
-        border-radius: 12px;
-
-        background: linear-gradient(
-            135deg,
-            #38bdf8,
-            #2563eb
-        );
-
-        color: white;
-
-        font-size: 18px;
-
-        font-weight: bold;
-
-        cursor: pointer;
-
-        transition: 0.2s;
-
-        box-shadow: 0 4px 10px rgba(37,99,235,0.2);
-    }
-
-    button:hover {
-
-        transform: translateY(-2px);
-
-        opacity: 0.92;
-    }
-
-    /* SCROLLBAR */
-
-    ::-webkit-scrollbar {
-
-        width: 8px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-
-        background: #64748b;
-
-        border-radius: 20px;
-    }
-
+        /* =================================================================
+           THEME COLORS as CSS variables.
+           Light mode lives in :root. Dark mode just overrides the variables
+           on body.dark-mode, so every element re-colors automatically.
+           ================================================================= */
+        :root {
+            --bg: #edf2f7;
+            --sidebar-bg-1: #1e293b;
+            --sidebar-bg-2: #334155;
+            --card-bg: #ffffff;
+            --card-side-bg: rgba(255, 255, 255, 0.08);
+            --card-side-hover: rgba(255, 255, 255, 0.15);
+            --text: #1e293b;
+            --muted: #64748b;
+            --sidebar-text: #ffffff;
+            --sidebar-muted: #d1d5db;
+            --accent-1: #38bdf8;
+            --accent-2: #2563eb;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        body.dark-mode {
+            --bg: #0f172a;
+            --sidebar-bg-1: #020617;
+            --sidebar-bg-2: #1e293b;
+            --card-bg: #1e293b;
+            --card-side-bg: rgba(255, 255, 255, 0.06);
+            --card-side-hover: rgba(255, 255, 255, 0.12);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --sidebar-text: #f1f5f9;
+            --sidebar-muted: #94a3b8;
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ---------------- SIDEBAR ---------------- */
+        .sidebar {
+            width: 300px;
+            background: linear-gradient(180deg, var(--sidebar-bg-1), var(--sidebar-bg-2));
+            padding: 15px;
+            color: var(--sidebar-text);
+            overflow-y: auto;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .new-note-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .new-note-btn:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+        #searchInput,
+        #categoryFilter {
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 4px 0 8px;
+            font-size: 13px;
+            color: var(--sidebar-muted);
+        }
+
+        .link-btn {
+            background: none;
+            border: none;
+            color: var(--accent-1);
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        /* ---------------- NOTE CARDS ---------------- */
+        .note-item {
+            background: var(--card-side-bg);
+            padding: 13px;
+            margin-bottom: 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            border-left: 5px solid var(--accent-1);
+            position: relative;
+        }
+
+        .note-item:hover {
+            transform: translateX(5px);
+            background: var(--card-side-hover);
+        }
+
+        .note-item.active {
+            background: var(--card-side-hover);
+            border-left-color: var(--accent-2);
+        }
+
+        .note-item strong {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 6px;
+            padding-right: 26px;
+        }
+
+        .note-item small {
+            color: var(--sidebar-muted);
+        }
+
+        .pin-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: none;
+            padding: 0;
+            opacity: 0.5;
+        }
+
+        .pin-btn.pinned {
+            opacity: 1;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+            margin-top: 6px;
+        }
+
+        .trash-actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .trash-actions button {
+            font-size: 12px;
+            padding: 6px 10px;
+            box-shadow: none;
+        }
+
+        /* ---------------- MAIN EDITOR ---------------- */
+        .main {
+            flex: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        #noteTitle {
+            flex: 1;
+            padding: 16px;
+            font-size: 26px;
+            border: none;
+            border-radius: 14px;
+            background: var(--card-bg);
+            color: var(--text);
+            box-shadow: 0 2px 8px var(--shadow);
+            outline: none;
+        }
+
+        #noteCategory {
+            width: 200px;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 14px;
+            background: var(--card-bg);
+            color: var(--text);
+            box-shadow: 0 2px 8px var(--shadow);
+            outline: none;
+        }
+
+        #noteContent {
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 14px;
+            resize: none;
+            background: var(--card-bg);
+            color: var(--text);
+            box-shadow: 0 2px 8px var(--shadow);
+            outline: none;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            opacity: 0.92;
+        }
+
+        .small-btn {
+            padding: 12px 14px;
+        }
+
+        .status-row {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: bold;
+        }
+
+        /* ---------------- SHORTCUTS MODAL ---------------- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            color: var(--text);
+            padding: 28px;
+            border-radius: 16px;
+            width: 420px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal h2 {
+            margin-bottom: 14px;
+        }
+
+        .modal table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .modal td {
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--bg);
+        }
+
+        .modal kbd {
+            background: var(--bg);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--muted);
+            border-radius: 20px;
+        }
     </style>
-
 </head>
 
 <body>
-
-    <!-- SIDEBAR -->
-
+    <!-- ===================== SIDEBAR ===================== -->
     <div class="sidebar">
+        <button class="new-note-btn" id="newNoteBtn">📝 New Note</button>
 
-        <button
-            class="new-note-btn"
-            id="newNoteBtn">
+        <input type="text" id="searchInput" placeholder="🔍 Search notes...">
+        <select id="categoryFilter">
+            <option value="">All categories</option>
+        </select>
 
-            📝 New Note
-
-        </button>
+        <div class="sidebar-header">
+            <span id="listTitle">My Notes</span>
+            <button class="link-btn" id="emptyTrashBtn" style="display:none;">Empty Trash</button>
+        </div>
 
         <div id="notesList"></div>
-
     </div>
 
-    <!-- MAIN SECTION -->
-
+    <!-- ===================== EDITOR ===================== -->
     <div class="main">
+        <div class="meta-row">
+            <input type="text" id="noteTitle" placeholder="Note Title">
+            <input type="text" id="noteCategory" placeholder="Category (e.g. Work)">
+        </div>
 
-        <input
-            type="text"
-            id="noteTitle"
-            placeholder="Note Title">
-
-        <br>
-
-        <textarea
-            id="noteContent"
-            placeholder="Write your note..."></textarea>
-
-        <!-- BUTTONS -->
+        <textarea id="noteContent" placeholder="Write your note..."></textarea>
 
         <div class="buttons">
+            <button id="saveBtn">💾 Save</button>
+            <button id="saveAsBtn">📁 Save As</button>
+            <button id="openFileBtn">📂 Open File</button>
+            <button id="exportPdfBtn">📄 Export PDF</button>
+            <button id="printBtn">🖨 Print</button>
+            <button id="deleteBtn">🗑 Delete</button>
 
-            <button id="saveBtn">
-                💾 Save
-            </button>
+            <span style="flex:1"></span>
 
-            <button id="saveAsBtn">
-                📁 Save As
-            </button>
-
-            <button id="openFileBtn">
-                📂 Open File
-            </button>
-
-            <button id="deleteBtn">
-                🗑 Delete
-            </button>
-
+            <button class="small-btn" id="fontDownBtn">A-</button>
+            <button class="small-btn" id="fontUpBtn">A+</button>
+            <button class="small-btn" id="themeBtn">🌙</button>
         </div>
 
-        <!-- WORD COUNT -->
-
-        <div id="word-count">
-            Words: 0 | Characters: 0
+        <div class="status-row">
+            <div id="word-count">Words: 0 | Characters: 0</div>
+            <div id="save-status"></div>
         </div>
-
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- ===================== SHORTCUTS MODAL ===================== -->
+    <div class="modal-overlay" id="shortcutsModal">
+        <div class="modal">
+            <h2>⌨️ Keyboard Shortcuts</h2>
+            <table>
+                <tr><td>New Note</td><td><kbd>Ctrl + N</kbd></td></tr>
+                <tr><td>Open File</td><td><kbd>Ctrl + O</kbd></td></tr>
+                <tr><td>Save</td><td><kbd>Ctrl + S</kbd></td></tr>
+                <tr><td>Save As</td><td><kbd>Ctrl + Shift + S</kbd></td></tr>
+                <tr><td>Export as PDF</td><td><kbd>Ctrl + E</kbd></td></tr>
+                <tr><td>Print</td><td><kbd>Ctrl + P</kbd></td></tr>
+                <tr><td>Toggle Trash Bin</td><td><kbd>Ctrl + T</kbd></td></tr>
+                <tr><td>Zoom In / Out / Reset</td><td><kbd>Ctrl + + / - / 0</kbd></td></tr>
+                <tr><td>This dialog</td><td><kbd>Ctrl + /</kbd></td></tr>
+            </table>
+            <div style="text-align:right; margin-top:16px;">
+                <button id="closeShortcutsBtn">Close</button>
+            </div>
+        </div>
+    </div>
 
     <script src="renderer.js"></script>
-
 </body>
 
 </html>
